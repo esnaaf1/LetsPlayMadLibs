@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+// Model a completed MadLib
 struct MadLibAnswerResponse: Codable, Hashable {
     let filledOutMadLibId: Int
     let madLibId: Int
@@ -16,7 +17,7 @@ struct MadLibAnswerResponse: Codable, Hashable {
 }
 
 
-// function to get all completed answers
+// Crete a function for all completed Mad Libs
 
 func fetchAllCompleted(userName: String, completion: @escaping ([MadLibAnswerResponse]?) -> Void){
     if (userName == "") {
@@ -51,7 +52,7 @@ func fetchAllCompleted(userName: String, completion: @escaping ([MadLibAnswerRes
     task.resume()
 }
 
-// View of all completed Mad Libs
+// Create a view of all completed Mad Libs
 struct CompletedView: View {
     @State var madLibAnswerResponseList: [MadLibAnswerResponse]?
     @State var isError: Bool = false

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 
-// function for getting a particular completed mad lib
+// Create a function for fetching a completed Mad Lib
 func fetchACompleted(id: Int, completion: @escaping (String?) -> Void){
     let url = URL(string: "https://seng5199madlib.azurewebsites.net/api/PostMadLib/\(id)" )!
     var request = URLRequest(url: url)
@@ -34,7 +34,7 @@ func fetchACompleted(id: Int, completion: @escaping (String?) -> Void){
     task.resume()
 }
 
-// view for completed Mad Lib details
+// Create a view for a completed Mad Lib
 struct CompletedDetailView: View {
     let id: Int
     let title: String

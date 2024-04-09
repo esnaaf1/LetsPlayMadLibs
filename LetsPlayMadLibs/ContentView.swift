@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         
         VStack {
-            Text("Let's Play Mad Lib!")
+            Text("Let's Play Mad Libs!")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .rotationEffect(.degrees(angle))

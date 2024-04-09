@@ -7,19 +7,21 @@
 
 import Foundation
 import SwiftUI
+
+// Create a data structure for modeling a Mad Lib story
 struct Story: Identifiable, Decodable {
     let id: Int
     let storyTitle: String
 }
 
-// Trying out the View Model design pattern for the List of Stories
+// Using ViewModel design pattern for the List of Stories
 class StoryViewModel: ObservableObject {
     @Published var stories = [Story]()
 
     func fetchStories(from urlString: String) {
         guard let url = URL(string: urlString) else { return }
 
-        URLSession.shared.dataTask(with: url) { (data, _, _) in
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else { return }
 
             let decoder = JSONDecoder()
@@ -33,7 +35,7 @@ class StoryViewModel: ObservableObject {
 }
 
 
-// Create a view of the Mad Lib Stories
+// Create a view of all available Mad Lib Stories
 struct StoryListView: View {
     @ObservedObject var viewModel = StoryViewModel()
 

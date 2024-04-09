@@ -10,9 +10,9 @@ import SwiftUI
 
 import Foundation
 
-// Define datea models for the API Requests
+// Create the required data structures
 
-// Define MadLib data
+// Model a Mad Lib story
 struct MadLib: Codable {
     let id: Int
     let storyTitle: String
@@ -34,14 +34,14 @@ struct MadLib: Codable {
     }
 }
 
-// Define Questions
+// Model questions related to a Mad Lib story
 struct Questions: Codable, Identifiable {
     let id: Int
     let position: Int
     let description: String
 }
 
-// Define FilledOutMadLib
+// Model a filled-out Mad Lib
 
 struct FilledOutMadLib: Codable {
     let madLibId: Int
@@ -50,13 +50,13 @@ struct FilledOutMadLib: Codable {
     var answers: [Answer]
 }
 
-// Define Answer
+// Model answers for a filled-out Mad Lib
 struct Answer: Codable {
     var questionId: Int
     var answerValue: String
 }
 
-// Function for getting a single Madlib
+// Create a function for fetching a Story
 func fetchAStory(id: Int, completion: @escaping (MadLib?) -> Void){
     let url = URL(string: "https://seng5199madlib.azurewebsites.net/api/MadLib/\(id)" )!
     var request = URLRequest(url: url)
@@ -86,7 +86,7 @@ func fetchAStory(id: Int, completion: @escaping (MadLib?) -> Void){
     task.resume()
 }
 
-// Function for posting an answer
+// Create a function for posting answers for blanks in a Mad Lib story
 func postFilledOutMadLib(body: FilledOutMadLib, completion: @escaping (String?) -> Void){
     let url = URL(string: "https://seng5199madlib.azurewebsites.net/api/PostMadLib" )!
     let data = try! JSONEncoder().encode(body)
@@ -127,8 +127,6 @@ struct StoryDetailView: View {
     @State var canSubmit: Bool = false
     @State var responseString: String?
     @State var fetching: Bool = false
-    @State var showFilledOutMadLib = false
-    @State var valueToPass = ""
 
     var body: some View {
         VStack {
