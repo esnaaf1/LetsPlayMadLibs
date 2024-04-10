@@ -56,7 +56,7 @@ struct Answer: Codable {
     var answerValue: String
 }
 
-// Create a function for fetching a Story
+// Using the network call method that was shared in the class
 func fetchAStory(id: Int, completion: @escaping (MadLib?) -> Void){
     let url = URL(string: "https://seng5199madlib.azurewebsites.net/api/MadLib/\(id)" )!
     var request = URLRequest(url: url)
@@ -65,7 +65,7 @@ func fetchAStory(id: Int, completion: @escaping (MadLib?) -> Void){
     let session = URLSession.shared
     let task = session.dataTask(with: request) { (data, response, error) in
         if let error = error {
-            print("Error fetching all mad libs: \(error)")
+            print("Error fetching the Mad Lib with id: \(id): \(error)")
             completion(nil)
             return
         }
@@ -75,8 +75,9 @@ func fetchAStory(id: Int, completion: @escaping (MadLib?) -> Void){
           return
         }
         
+        let decoder = JSONDecoder()
         do {
-          let madlib = try JSONDecoder().decode(MadLib.self, from: responseData)
+          let madlib = try decoder.decode(MadLib.self, from: responseData)
             completion(madlib)
 
         } catch {
@@ -102,7 +103,7 @@ func postFilledOutMadLib(body: FilledOutMadLib, completion: @escaping (String?) 
     let session = URLSession.shared
     let task = session.dataTask(with: request) { (data, response, error) in
         if let error = error {
-            print("Error fetching posting mad lib: \(error)")
+            print("POST Error: \(error)")
             return
         }
 
@@ -147,7 +148,7 @@ struct StoryDetailView: View {
 
                     }
                 } header: {
-                    Text("Enter a value for the following: ")
+                    Text("Enter a value for the following blanks: ")
                 } footer: {
                     VStack(alignment: .center) {
                         Spacer()

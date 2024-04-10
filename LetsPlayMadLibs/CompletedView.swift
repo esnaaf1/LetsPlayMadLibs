@@ -17,8 +17,8 @@ struct MadLibAnswerResponse: Codable, Hashable {
 }
 
 
-// Crete a function for all completed Mad Libs
-
+// Using the network call method that was shared in the class
+//
 func fetchAllCompleted(userName: String, completion: @escaping ([MadLibAnswerResponse]?) -> Void){
     if (userName == "") {
         completion(nil)
@@ -32,7 +32,7 @@ func fetchAllCompleted(userName: String, completion: @escaping ([MadLibAnswerRes
     let session = URLSession.shared
     let task = session.dataTask(with: request) { (data, response, error) in
         if let error = error {
-            print("Error fetching all mad lib solutions: \(error)")
+            print("Error fetching all Mad Lib solutions: \(error)")
             completion(nil)
             return
         }
@@ -42,8 +42,9 @@ func fetchAllCompleted(userName: String, completion: @escaping ([MadLibAnswerRes
           return
         }
         
+        let decoder = JSONDecoder()
         do {
-            let madlib = try JSONDecoder().decode([MadLibAnswerResponse].self, from: responseData)
+            let madlib = try decoder.decode([MadLibAnswerResponse].self, from: responseData)
             completion(madlib)
         } catch {
           print("Error decoding JSON data: \(error)")
@@ -52,7 +53,8 @@ func fetchAllCompleted(userName: String, completion: @escaping ([MadLibAnswerRes
     task.resume()
 }
 
-// Create a view of all completed Mad Libs
+
+// View of all complete
 struct CompletedView: View {
     @State var madLibAnswerResponseList: [MadLibAnswerResponse]?
     @State var isError: Bool = false
@@ -106,7 +108,7 @@ struct CompletedView: View {
         }
     }
     
-    func dateFormatter(dateString: String) -> String {
+    private func dateFormatter(dateString: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         let date = dateFormatter.date(from: dateString)
@@ -122,7 +124,7 @@ struct CompletedView: View {
         }
     }
     
-    func fetchCompletedList() {
+    private func fetchCompletedList() {
         fetchAllCompleted(userName: "esna0004", completion: {msg in
             if let message = msg {
                 madLibAnswerResponseList = message

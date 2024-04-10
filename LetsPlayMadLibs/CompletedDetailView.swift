@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 
-// Create a function for fetching a completed Mad Lib
+// Using network call method data was shared in the class
 func fetchACompleted(id: Int, completion: @escaping (String?) -> Void){
     let url = URL(string: "https://seng5199madlib.azurewebsites.net/api/PostMadLib/\(id)" )!
     var request = URLRequest(url: url)
@@ -18,7 +18,7 @@ func fetchACompleted(id: Int, completion: @escaping (String?) -> Void){
     let session = URLSession.shared
     let task = session.dataTask(with: request) { (data, response, error) in
         if let error = error {
-            print("Error fetching mad lib solution with id \(id): \(error)")
+            print("Error fetching Mad Lib with id \(id): \(error)")
             completion(nil)
             return
         }

@@ -14,7 +14,8 @@ struct Story: Identifiable, Decodable {
     let storyTitle: String
 }
 
-// Using ViewModel design pattern for the List of Stories
+// Using ViewModel method with ObservableObject to get a list of Mad Lib
+// Stories
 class StoryViewModel: ObservableObject {
     @Published var stories = [Story]()
 
@@ -22,6 +23,12 @@ class StoryViewModel: ObservableObject {
         guard let url = URL(string: urlString) else { return }
 
         URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            if let error = error {
+                print("Error fetching Mad Lib Stories \(error)")
+                return
+            }
+            
             guard let data = data else { return }
 
             let decoder = JSONDecoder()
