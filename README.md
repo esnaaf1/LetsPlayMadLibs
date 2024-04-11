@@ -8,5 +8,6 @@ List of SwiftUI views used by the ContentView:
 * completedDetailView: This view displays a completed Mad Lib story from the list of completed Mad Libs. 
 #### Known limitations:  
 * The username for posting completed Mad Libs is hard-coded in ContentView.
+* To change the username replace value of global variable userName in the ContentView
 * Limited error-checking
 #### Supported Languages:  English
