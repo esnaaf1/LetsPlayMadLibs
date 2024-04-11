@@ -125,7 +125,7 @@ struct CompletedView: View {
     }
     
     private func fetchCompletedList() {
-        fetchAllCompleted(userName: "esna0004", completion: {msg in
+        fetchAllCompleted(userName: userName, completion: {msg in
             if let message = msg {
                 madLibAnswerResponseList = message
                 isError = false

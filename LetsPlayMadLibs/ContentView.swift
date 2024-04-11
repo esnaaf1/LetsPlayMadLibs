@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+let userName = "esna0005"
+
 struct ContentView: View {
     @State private var angle: Double = 0
     
@@ -36,7 +38,7 @@ struct ContentView: View {
 
             }
             
-            Text(" username = esna0004")
+            Text(" username = \(userName)")
                 .foregroundStyle(.blue)
         }
         

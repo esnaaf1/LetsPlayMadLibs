@@ -214,7 +214,7 @@ struct StoryDetailView: View {
     
     func submitForm() async {
         if let madLib {
-            let answerForm = madLib.createAnswerForm(answerList: answers, username: "esna0004")
+            let answerForm = madLib.createAnswerForm(answerList: answers, username: userName)
             postFilledOutMadLib(body: answerForm, completion: {msg in
                 responseString = msg
                 fetching = false
